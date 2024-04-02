@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: center-data-service
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.4:48848
+        namespace: c7bd9f57-9e6f-4a9a-8db2-8003443ac0bd
+      config:
+        server-addr: 192.168.1.4:48848 #Nacos配置中心地址
+        file-extension: yaml #文件拓展格式
+        namespace: c7bd9f57-9e6f-4a9a-8db2-8003443ac0bd
+        shared-configs:
+          - data-id: redis-common-dev.yaml
+            group: COMMON_GROUP
+          - data-id: sa-token-dev.yaml
+            group: COMMON_GROUP

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.skyln.web.dao.mapper.AccountMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.skyln.web.model.DO.AccountDO">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="username" property="username" />
+        <result column="pwd" property="pwd" />
+        <result column="head_img" property="headImg" />
+        <result column="mail" property="mail" />
+        <result column="secret" property="secret" />
+        <result column="phone" property="phone" />
+        <result column="auth" property="auth" />
+        <result column="slogan" property="slogan" />
+        <result column="sex" property="sex" />
+        <result column="points" property="points" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="gmt_modified" property="gmtModified" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, head_img, phone, pwd, secret, mail, username, auth, gmt_create, gmt_modified, slogan, sex, points, name
+    </sql>
+
+</mapper>
