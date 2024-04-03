@@ -55,7 +55,7 @@ public enum MailEnum {
 
     public static MailEnum getMailEnumByName(String name) {
         List<MailEnum> collect = Arrays.stream(MailEnum.values()).filter(obj -> StringUtils.equalsIgnoreCase(obj.name(), name))
-                .collect(Collectors.toList());
+                .toList();
         return collect.size() != 1 ? null : collect.get(0);
     }
 

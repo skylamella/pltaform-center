@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.skyln.web.dao.mapper.ProductOrderItemMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.skyln.web.model.DO.ProductOrderItemDO">
+        <id column="id" property="id"/>
+        <result column="product_order_id" property="productOrderId"/>
+        <result column="out_trade_no" property="outTradeNo"/>
+        <result column="product_id" property="productId"/>
+        <result column="product_name" property="productName"/>
+        <result column="product_img" property="productImg"/>
+        <result column="buy_num" property="buyNum"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+        <result column="total_amount" property="totalAmount"/>
+        <result column="amount" property="amount"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, product_order_id, out_trade_no, product_id, product_name, product_img, buy_num, gmt_create, gmt_modified, total_amount, amount
+    </sql>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List_No_Id">
+        product_order_id, out_trade_no, product_id, product_name, product_img, buy_num, total_amount, amount
+    </sql>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into product_order_item (<include refid="Base_Column_List_No_Id" />)
+        values
+        <foreach collection="orderItemList" item="item" index="index" separator=",">
+            (
+            #{item.productOrderId},
+            #{item.outTradeNo},
+            #{item.productId},
+            #{item.productName},
+            #{item.productImg},
+            #{item.buyNum},
+            #{item.totalAmount},
+            #{item.amount}
+            )
+        </foreach>
+    </insert>
+
+</mapper>

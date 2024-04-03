@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.skyln.web.dao.mapper.ProductOrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.skyln.web.model.DO.ProductOrderDO">
+        <id column="id" property="id"/>
+        <result column="out_trade_no" property="outTradeNo"/>
+        <result column="state" property="state"/>
+        <result column="total_amount" property="totalAmount"/>
+        <result column="pay_amount" property="payAmount"/>
+        <result column="pay_type" property="payType"/>
+        <result column="nickname" property="nickname"/>
+        <result column="head_img" property="headImg"/>
+        <result column="user_id" property="userId"/>
+        <result column="del" property="del"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+        <result column="order_type" property="orderType"/>
+        <result column="receiver_address" property="receiverAddress"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, out_trade_no, state, gmt_create, gmt_modified, total_amount, pay_amount, pay_type, nickname, head_img, user_id, del, order_type, receiver_address
+    </sql>
+    <!-- 更新订单状态 -->
+    <update id="updateOrderPayState">
+        update product_order
+        set `state` = #{newState}
+        where out_trade_no = #{outTradeNo}
+          and `state` = #{oldState}
+    </update>
+
+</mapper>

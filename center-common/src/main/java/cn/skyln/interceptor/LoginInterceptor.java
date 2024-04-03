@@ -40,7 +40,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         // 判定token是否为空
         if (StringUtils.isEmpty(token)) {
-            CommonUtils.renderJson(response, JsonData.buildResult(BizCodeEnum.ACCOUNT_UNLOGIN));
+            CommonUtils.renderJson(response, JsonData.buildResult(BizCodeEnum.ACCOUNT_UNLOGIN_ERROR));
             return false;
         }
 //

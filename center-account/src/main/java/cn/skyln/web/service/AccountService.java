@@ -1,8 +1,11 @@
 package cn.skyln.web.service;
 
+import cn.skyln.util.JsonData;
 import cn.skyln.web.model.DO.AccountDO;
-import cn.skyln.web.model.REQ.AccountREQ;
+import cn.skyln.web.model.REQ.UserLoginRequest;
+import cn.skyln.web.model.REQ.UserRegisterRequest;
 import cn.skyln.web.model.VO.AccountVO;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * @author lamella
@@ -12,11 +15,12 @@ import cn.skyln.web.model.VO.AccountVO;
 public interface AccountService {
 
     AccountDO getAccountById(String id);
+
     AccountDO getAccountByMailOrPhoneOrUsername(String phoneOrMailOrUsername);
 
-    AccountDO getAccountForLogin(String loginInfo, String pwd);
+    JsonData getAccountForLogin(HttpServletRequest httpServletRequest, UserLoginRequest userLoginRequest);
 
-    AccountDO userRegister(AccountREQ accountREQ);
+    JsonData userRegister(UserRegisterRequest userRegisterRequest);
 
     AccountVO findUserDetail();
 }

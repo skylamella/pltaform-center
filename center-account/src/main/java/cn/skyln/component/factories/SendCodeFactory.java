@@ -35,8 +35,8 @@ public class SendCodeFactory {
 
     private String key;
 
-    public void sendCode(String enumName, String to, String code, String serviceType) {
-        SendCodeStrategyContext sendCodeStrategyContext = getSendCodeStrategyContext(enumName, to, serviceType);
+    public void sendCode(String enumName, String to, String code, String serviceName) {
+        SendCodeStrategyContext sendCodeStrategyContext = getSendCodeStrategyContext(enumName, to, serviceName);
         if (Objects.nonNull(sendCodeStrategyContext)) {
             long currentTimeStamp = CommonUtils.getCurrentTimeStamp();
             if (Boolean.TRUE.equals(redisTemplate.hasKey(key))) {
@@ -56,12 +56,20 @@ public class SendCodeFactory {
         throw new BizException(BizCodeEnum.CODE_TO_ERROR);
     }
 
-    private SendCodeStrategyContext getSendCodeStrategyContext(String enumName, String to, String serviceType) {
+    public String generateCacheKey(String enumName, String to, String serviceName) {
         if (CheckUtil.isPhone(to)) {
-            key = String.format(CacheKey.CHECK_CODE_KEY, serviceType, "sms-" + enumName, to);
+            return String.format(CacheKey.CHECK_CODE_KEY, serviceName, "sms-" + enumName, to);
+        } else if (CheckUtil.isEmail(to)) {
+            return String.format(CacheKey.CHECK_CODE_KEY, serviceName, "mail-" + enumName, to);
+        }
+        return null;
+    }
+
+    private SendCodeStrategyContext getSendCodeStrategyContext(String enumName, String to, String serviceName) {
+        key = generateCacheKey(enumName, to, serviceName);
+        if (CheckUtil.isPhone(to)) {
             return new SendCodeStrategyContext(smsComponent);
         } else if (CheckUtil.isEmail(to)) {
-            key = String.format(CacheKey.CHECK_CODE_KEY, serviceType, "mail-" + enumName, to);
             return new SendCodeStrategyContext(mailComponent);
         }
         return null;
