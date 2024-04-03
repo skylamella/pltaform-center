@@ -1,6 +1,6 @@
 spring:
   application:
-    name: center-data-service
+    name: center-test-data-service
   profiles:
     active: dev
   cloud:

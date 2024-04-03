@@ -16,7 +16,7 @@
     <modules>
         <module>center-account</module>
         <module>center-common</module>
-        <module>center-data</module>
+        <module>center-engine-test-data</module>
         <module>center-gateway</module>
         <module>center-engine-link</module>
         <module>center-engine-test</module>
@@ -25,6 +25,7 @@
         <module>center-product</module>
         <module>center-order</module>
         <module>center-coupon</module>
+        <module>center-engine-link-data</module>
     </modules>
 
     <properties>
