@@ -1,6 +1,6 @@
 package cn.skyln.web.dao.mapper;
 
-import cn.skyln.web.model.DO.MqErrorLogDO;
+import cn.skyln.web.model.DO.CartDO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author skylamella
- * @since 2022-09-29
+ * @since 2022-10-23
  */
-public interface MqErrorLogMapper extends BaseMapper<MqErrorLogDO> {
+public interface CartMapper extends BaseMapper<CartDO> {
 
 }

@@ -1,7 +1,7 @@
 package cn.skyln.web.service.impl;
 
-import cn.skyln.web.dao.mapper.MqErrorLogMapper;
-import cn.skyln.web.model.DO.MqErrorLogDO;
+import cn.skyln.web.mapper.MqErrorLogMapper;
+import cn.skyln.web.model.MqErrorLogDO;
 import cn.skyln.web.service.MqErrorLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
