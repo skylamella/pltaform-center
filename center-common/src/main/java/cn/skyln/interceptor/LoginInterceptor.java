@@ -4,6 +4,7 @@ import cn.skyln.enums.BizCodeEnum;
 import cn.skyln.model.LoginUser;
 import cn.skyln.util.CommonUtils;
 import cn.skyln.util.JsonData;
+import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -20,8 +21,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @Slf4j
 public class LoginInterceptor implements HandlerInterceptor {
 
-    @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    @Resource(name = "serviceDbTemplate")
+    private RedisTemplate<String, Object> redisTemplate;
 
     public static ThreadLocal<LoginUser> threadLocal = new InheritableThreadLocal<>();
 

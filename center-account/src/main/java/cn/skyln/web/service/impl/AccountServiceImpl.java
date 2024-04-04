@@ -18,6 +18,7 @@ import cn.skyln.web.model.VO.AccountVO;
 import cn.skyln.web.service.AccountService;
 import cn.skyln.web.service.NotifyService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.Md5Crypt;
@@ -47,10 +48,13 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AccountMapper accountMapper;
+
     @Autowired
     private NotifyService notifyService;
-    @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+
+    @Resource(name = "cacheDbTemplate")
+    private RedisTemplate<String, Object> redisTemplate;
+
     @Autowired
     private CouponFeignService couponFeignService;
 

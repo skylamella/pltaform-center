@@ -6,6 +6,7 @@ import cn.skyln.enums.BizCodeEnum;
 import cn.skyln.util.CommonUtils;
 import cn.skyln.util.JsonData;
 import cn.skyln.web.service.NotifyService;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +26,14 @@ public class NotifyServiceImpl implements NotifyService {
 
     @Autowired
     private SendCodeFactory sendCodeFactory;
-    @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+
+    @Resource(name = "cacheDbTemplate")
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Override
     public JsonData sendCode(String enumName, String to) {
         String cacheKey = sendCodeFactory.generateCacheKey(enumName, to, "center-account");
-        String cacheValue = redisTemplate.opsForValue().get(cacheKey);
+        String cacheValue = String.valueOf(redisTemplate.opsForValue().get(cacheKey));
         // 如果redis中存在缓存，则判断是否为60秒内重复发送
         if (StringUtils.isNotBlank(cacheValue)) {
             long ttl = Long.parseLong(cacheValue.split("_")[1]);
@@ -53,7 +55,7 @@ public class NotifyServiceImpl implements NotifyService {
     @Override
     public boolean checkCode(String enumName, String to, String code) {
         String cacheKey = sendCodeFactory.generateCacheKey(enumName, to, "center-account");
-        String cacheValue = redisTemplate.opsForValue().get(cacheKey);
+        String cacheValue = String.valueOf(redisTemplate.opsForValue().get(cacheKey));
         if (StringUtils.isNotBlank(cacheValue)) {
             if (StringUtils.equals(cacheValue.split("_")[0], code)) {
                 redisTemplate.delete(cacheKey);

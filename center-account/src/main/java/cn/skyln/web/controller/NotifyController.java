@@ -7,6 +7,7 @@ import cn.skyln.util.JsonData;
 import cn.skyln.util.SecurityUtil;
 import cn.skyln.web.service.NotifyService;
 import com.google.code.kaptcha.Producer;
+import jakarta.annotation.Resource;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -39,8 +40,8 @@ public class NotifyController {
     @Autowired
     private NotifyService notifyService;
 
-    @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    @Resource(name = "cacheDbTemplate")
+    private RedisTemplate<String, Object> redisTemplate;
 
     @GetMapping("captcha")
     public void getCaptcha(HttpServletRequest request, HttpServletResponse response) {
@@ -60,7 +61,7 @@ public class NotifyController {
                                      @RequestParam(value = "captcha") String captcha,
                                      HttpServletRequest request) {
         String key = getCaptchaKey(request);
-        String cacheCaptcha = redisTemplate.opsForValue().get(key);
+        String cacheCaptcha = String.valueOf(redisTemplate.opsForValue().get(key));
         if (StringUtils.isEmpty(key) || StringUtils.isEmpty(cacheCaptcha) || !StringUtils.equalsIgnoreCase(captcha, cacheCaptcha)) {
             return JsonData.buildResult(BizCodeEnum.CODE_CAPTCHA_ERROR);
         } else {
