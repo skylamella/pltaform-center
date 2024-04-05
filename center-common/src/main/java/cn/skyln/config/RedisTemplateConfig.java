@@ -36,18 +36,35 @@ public class RedisTemplateConfig {
     private String password;
     private static RedissonClient redisson = null;
 
+    /**
+     * 雪花ID算法专用
+     *
+     * @return
+     */
     @Bean("idWorkerTemplate")
     public RedisTemplate<String, String> idWorkerTemplate() {
         return getRedisTemplate(idWorkerDb);
     }
 
+    /**
+     * 各微服务主要使用的缓存数据库
+     *
+     * @param <T>
+     * @return
+     */
     @Bean("serviceDbTemplate")
-    public RedisTemplate<String, Object> serviceDbTemplate() {
+    public <T> RedisTemplate<String, T> serviceDbTemplate() {
         return getRedisTemplate(serviceDb);
     }
 
+    /**
+     * 缓存诸如token、验证码等信息
+     *
+     * @param <T>
+     * @return
+     */
     @Bean("cacheDbTemplate")
-    public RedisTemplate<String, Object> cacheDbTemplate() {
+    public <T> RedisTemplate<String, T> cacheDbTemplate() {
         return getRedisTemplate(cacheDb);
     }
 

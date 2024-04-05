@@ -1,4 +1,4 @@
-package cn.skyln.web.model.DTO;
+package cn.skyln.web.model.REQ;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -9,7 +9,7 @@ import lombok.Data;
  * @Description:
  */
 @Data
-public class AddressAddRequest {
+public class AddressAddREQ {
     /**
      * 是否默认收货地址：0->否；1->是
      */

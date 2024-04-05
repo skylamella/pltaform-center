@@ -1,7 +1,7 @@
 package cn.skyln.web.service;
 
 import cn.skyln.util.JsonData;
-import cn.skyln.web.model.DTO.AddressAddRequest;
+import cn.skyln.web.model.REQ.AddressAddREQ;
 import cn.skyln.web.model.VO.AddressVO;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public interface AddressService {
 
     AddressVO getOneById(String addressId);
 
-    JsonData add(AddressAddRequest addressAddRequest);
+    JsonData add(AddressAddREQ addressAddREQ);
 
     JsonData del(String addressId);
 

@@ -32,6 +32,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -82,7 +83,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     @Autowired
     private PayFactory payFactory;
 
-    @Autowired
+    @Resource(name = "serviceDbTemplate")
     private RedisTemplate<String, Long> redisTemplate;
 
     /**

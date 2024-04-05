@@ -9,7 +9,7 @@ import lombok.Data;
  * @Description:
  */
 @Data
-public class UserRegisterRequest {
+public class UserRegisterREQ {
     private String pwd;
 
     @JsonProperty("re_pwd")

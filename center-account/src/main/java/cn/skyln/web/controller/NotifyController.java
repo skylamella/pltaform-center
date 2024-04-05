@@ -41,7 +41,7 @@ public class NotifyController {
     private NotifyService notifyService;
 
     @Resource(name = "cacheDbTemplate")
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 
     @GetMapping("captcha")
     public void getCaptcha(HttpServletRequest request, HttpServletResponse response) {
@@ -61,7 +61,7 @@ public class NotifyController {
                                      @RequestParam(value = "captcha") String captcha,
                                      HttpServletRequest request) {
         String key = getCaptchaKey(request);
-        String cacheCaptcha = String.valueOf(redisTemplate.opsForValue().get(key));
+        String cacheCaptcha = redisTemplate.opsForValue().get(key);
         if (StringUtils.isEmpty(key) || StringUtils.isEmpty(cacheCaptcha) || !StringUtils.equalsIgnoreCase(captcha, cacheCaptcha)) {
             return JsonData.buildResult(BizCodeEnum.CODE_CAPTCHA_ERROR);
         } else {

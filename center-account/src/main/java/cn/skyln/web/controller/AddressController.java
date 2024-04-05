@@ -2,7 +2,7 @@ package cn.skyln.web.controller;
 
 import cn.skyln.enums.BizCodeEnum;
 import cn.skyln.util.JsonData;
-import cn.skyln.web.model.DTO.AddressAddRequest;
+import cn.skyln.web.model.REQ.AddressAddREQ;
 import cn.skyln.web.model.VO.AddressVO;
 import cn.skyln.web.service.AddressService;
 import lombok.extern.slf4j.Slf4j;
@@ -35,8 +35,8 @@ public class AddressController {
     }
 
     @PostMapping("add")
-    public JsonData addAddress(@RequestBody AddressAddRequest addressAddRequest) {
-        return addressService.add(addressAddRequest);
+    public JsonData addAddress(@RequestBody AddressAddREQ addressAddREQ) {
+        return addressService.add(addressAddREQ);
     }
 
     @PostMapping("/del/{address_id}")

@@ -1,38 +1,32 @@
 package cn.skyln.web.service.impl;
 
-import cn.skyln.constant.TimeConstant;
+import cn.dev33.satoken.session.SaSession;
+import cn.dev33.satoken.stp.StpUtil;
 import cn.skyln.enums.BizCodeEnum;
 import cn.skyln.interceptor.LoginInterceptor;
 import cn.skyln.model.LoginUser;
 import cn.skyln.util.CommonUtils;
 import cn.skyln.util.JsonData;
-import cn.skyln.util.RsaUtils;
 import cn.skyln.web.dao.mapper.AccountMapper;
 import cn.skyln.web.dao.repo.AccountRepo;
 import cn.skyln.web.feignClient.CouponFeignService;
 import cn.skyln.web.model.DO.AccountDO;
 import cn.skyln.web.model.DTO.NewUserCouponDTO;
-import cn.skyln.web.model.REQ.UserLoginRequest;
-import cn.skyln.web.model.REQ.UserRegisterRequest;
+import cn.skyln.web.model.REQ.UserLoginREQ;
+import cn.skyln.web.model.REQ.UserRegisterREQ;
 import cn.skyln.web.model.VO.AccountVO;
 import cn.skyln.web.service.AccountService;
 import cn.skyln.web.service.NotifyService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.Md5Crypt;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
-
-import static cn.skyln.util.SecurityUtil.MD5WithSecret;
 
 /**
  * @author lamella
@@ -52,9 +46,6 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private NotifyService notifyService;
 
-    @Resource(name = "cacheDbTemplate")
-    private RedisTemplate<String, Object> redisTemplate;
-
     @Autowired
     private CouponFeignService couponFeignService;
 
@@ -69,23 +60,23 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public JsonData getAccountForLogin(HttpServletRequest httpServletRequest, UserLoginRequest userLoginRequest) {
+    public JsonData getAccountForLogin(HttpServletRequest httpServletRequest, UserLoginREQ userLoginREQ) {
         // 判断传递的邮箱号是否为空
-        if (StringUtils.isEmpty(userLoginRequest.getMail())) {
+        if (StringUtils.isEmpty(userLoginREQ.getMail())) {
             log.error("[{}] {}",
                     BizCodeEnum.ACCOUNT_NOT_EXIST_ERROR.getCode(),
                     BizCodeEnum.ACCOUNT_NOT_EXIST_ERROR.getMessage());
             return JsonData.buildResult(BizCodeEnum.ACCOUNT_NOT_EXIST_ERROR);
         }
         // 判断传递的密码是否为空
-        if (StringUtils.isEmpty(userLoginRequest.getPwd())) {
+        if (StringUtils.isEmpty(userLoginREQ.getPwd())) {
             log.error("[{}] {}",
                     BizCodeEnum.ACCOUNT_PWD_NOT_EXIST_ERROR.getCode(),
                     BizCodeEnum.ACCOUNT_PWD_NOT_EXIST_ERROR.getMessage());
             return JsonData.buildResult(BizCodeEnum.ACCOUNT_PWD_NOT_EXIST_ERROR);
         }
         // 判断账号是否存在
-        List<AccountDO> list = accountMapper.selectList(new QueryWrapper<AccountDO>().eq("mail", userLoginRequest.getMail()));
+        List<AccountDO> list = accountMapper.selectList(new QueryWrapper<AccountDO>().eq("mail", userLoginREQ.getMail()));
         if (list == null || list.size() <= 0) {
             log.error("[{}] {}",
                     BizCodeEnum.ACCOUNT_LOGIN_ERROR.getCode(),
@@ -94,32 +85,29 @@ public class AccountServiceImpl implements AccountService {
         }
         AccountDO userDO = list.get(0);
         // 判断密码是否正确
-        String md5Crypt = Md5Crypt.md5Crypt(userLoginRequest.getPwd().getBytes(), userDO.getSecret());
+        String md5Crypt = Md5Crypt.md5Crypt(userLoginREQ.getPwd().getBytes(), userDO.getSecret());
         if (!StringUtils.equals(userDO.getPwd(), md5Crypt)) {
             log.error("[{}] {}",
                     BizCodeEnum.ACCOUNT_LOGIN_ERROR.getCode(),
                     BizCodeEnum.ACCOUNT_LOGIN_ERROR.getMessage());
             return JsonData.buildResult(BizCodeEnum.ACCOUNT_LOGIN_ERROR);
         }
-        // 登录成功，生成JWT token
-        LoginUser loginUser = new LoginUser();
-        BeanUtils.copyProperties(userDO, loginUser);
+        // 登录成功，生成token
         try {
-            String token = "";
-            String refreshToken = "";
+            StpUtil.login(userDO.getId());
+            String token = StpUtil.getTokenValue();
+            SaSession tokenSession = StpUtil.getTokenSessionByToken(token);
+            tokenSession.set("head_img", userDO.getHeadImg());
+            tokenSession.set("mail", userDO.getMail());
+            tokenSession.set("name", userDO.getName());
+            tokenSession.set("safe_mode", userLoginREQ.getSafeMode());
             // 1：开启安全模式
-            if (userLoginRequest.getSafeMode() == 1) {
-                String ipAddr = CommonUtils.getIpAddr(httpServletRequest);
-//                token = JWTUtils.generateToken(loginUser, RsaUtils.getPrivateKey(), ipAddr);
-//                refreshToken = JWTUtils.generateRefreshToken(loginUser, RsaUtils.getPrivateKey(), ipAddr);
-            } else {
-//                token = JWTUtils.generateToken(loginUser, RsaUtils.getPrivateKey());
-//                refreshToken = JWTUtils.generateRefreshToken(loginUser, RsaUtils.getPrivateKey());
+            if (userLoginREQ.getSafeMode() == 1) {
+                tokenSession.set("ip", CommonUtils.getIpAddr(httpServletRequest));
             }
-            redisTemplate.opsForValue().set(token, refreshToken, TimeConstant.EXPIRATION_TIME_HOUR, TimeUnit.HOURS);
             log.info("[{}] \"{}\"{}",
                     BizCodeEnum.LOGIN_SUCCESS.getCode(),
-                    userLoginRequest.getMail(),
+                    userLoginREQ.getMail(),
                     BizCodeEnum.LOGIN_SUCCESS.getMessage());
             return JsonData.buildResult(BizCodeEnum.LOGIN_SUCCESS, token);
         } catch (Exception e) {
@@ -131,41 +119,41 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public JsonData userRegister(UserRegisterRequest userRegisterRequest) {
+    public JsonData userRegister(UserRegisterREQ userRegisterREQ) {
         // 判断邮箱是否传入
-        if (StringUtils.isEmpty(userRegisterRequest.getMail())) {
+        if (StringUtils.isEmpty(userRegisterREQ.getMail())) {
             log.error("[{}] {}",
                     BizCodeEnum.ACCOUNT_NOT_EXIST_ERROR.getCode(),
                     BizCodeEnum.ACCOUNT_NOT_EXIST_ERROR.getMessage());
             return JsonData.buildResult(BizCodeEnum.ACCOUNT_NOT_EXIST_ERROR);
         }
         // 判断传递的密码是否为空
-        if (StringUtils.isEmpty(userRegisterRequest.getPwd()) || StringUtils.isEmpty(userRegisterRequest.getRePwd())) {
+        if (StringUtils.isEmpty(userRegisterREQ.getPwd()) || StringUtils.isEmpty(userRegisterREQ.getRePwd())) {
             log.error("[{}] {}",
                     BizCodeEnum.ACCOUNT_PWD_NOT_EXIST_ERROR.getCode(),
                     BizCodeEnum.ACCOUNT_PWD_NOT_EXIST_ERROR.getMessage());
             return JsonData.buildResult(BizCodeEnum.ACCOUNT_PWD_NOT_EXIST_ERROR);
         }
         // 判断输入的密码和确认密码是否相同
-        if (!StringUtils.equals(userRegisterRequest.getPwd(), userRegisterRequest.getRePwd())) {
+        if (!StringUtils.equals(userRegisterREQ.getPwd(), userRegisterREQ.getRePwd())) {
             log.error("[{}] {}",
                     BizCodeEnum.ACCOUNT_REGISTER_PWD_ERROR.getCode(),
                     BizCodeEnum.ACCOUNT_REGISTER_PWD_ERROR.getMessage());
             return JsonData.buildResult(BizCodeEnum.ACCOUNT_REGISTER_PWD_ERROR);
         }
         // 判断验证码是否正确
-        if (!notifyService.checkCode("REGISTRATION", userRegisterRequest.getMail(), userRegisterRequest.getCode())) {
+        if (!notifyService.checkCode("REGISTRATION", userRegisterREQ.getMail(), userRegisterREQ.getCode())) {
             log.error("[{}] {}",
                     BizCodeEnum.CODE_ERROR.getCode(),
                     BizCodeEnum.CODE_ERROR.getMessage());
             return JsonData.buildResult(BizCodeEnum.CODE_ERROR);
         }
         AccountDO userDO = new AccountDO();
-        BeanUtils.copyProperties(userRegisterRequest, userDO);
+        BeanUtils.copyProperties(userRegisterREQ, userDO);
         // 密码加盐
         userDO.setSecret("$1$" + CommonUtils.getRandomStr(8));
         // 密码加密
-        userDO.setPwd(Md5Crypt.md5Crypt(userRegisterRequest.getPwd().getBytes(), userDO.getSecret()));
+        userDO.setPwd(Md5Crypt.md5Crypt(userRegisterREQ.getPwd().getBytes(), userDO.getSecret()));
         // 邮箱唯一性校验
         if (checkUnique(userDO.getMail())) {
             int insert = accountMapper.insert(userDO);
@@ -174,7 +162,7 @@ public class AccountServiceImpl implements AccountService {
                 userRegisterInitTask(userDO);
                 log.info("[{}] \"{}\"{}",
                         BizCodeEnum.ACCOUNT_REGISTER_SUCCESS.getCode(),
-                        userRegisterRequest.getMail(),
+                        userRegisterREQ.getMail(),
                         BizCodeEnum.ACCOUNT_REGISTER_SUCCESS.getMessage());
                 return JsonData.buildResult(BizCodeEnum.ACCOUNT_REGISTER_SUCCESS);
             } else {

@@ -7,6 +7,7 @@ import cn.skyln.util.CheckUtil;
 import cn.skyln.web.service.CouponRecordService;
 import cn.skyln.web.service.MqErrorLogService;
 import com.rabbitmq.client.Channel;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
@@ -35,8 +36,8 @@ public class CouponMQListener {
     @Autowired
     private RedissonClient redissonClient;
 
-    @Autowired
-    private RedisTemplate redisTemplate;
+    @Resource(name = "serviceDbTemplate")
+    private RedisTemplate<String, Integer> redisTemplate;
 
     @Autowired
     private MqErrorLogService mqErrorLogService;

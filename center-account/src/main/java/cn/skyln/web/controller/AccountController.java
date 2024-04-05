@@ -3,23 +3,18 @@ package cn.skyln.web.controller;
 import cn.skyln.component.CosComponent;
 import cn.skyln.enums.BizCodeEnum;
 import cn.skyln.util.JsonData;
-import cn.skyln.web.model.DO.AccountDO;
-import cn.skyln.web.model.REQ.AccountREQ;
-import cn.skyln.web.model.REQ.UserLoginRequest;
-import cn.skyln.web.model.REQ.UserRegisterRequest;
-import cn.skyln.web.model.VO.AccountVO;
+import cn.skyln.web.model.REQ.UserLoginREQ;
+import cn.skyln.web.model.REQ.UserRegisterREQ;
 import cn.skyln.web.service.AccountService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 
 /**
  * @author lamella
@@ -52,12 +47,12 @@ public class AccountController {
     }
 
     @PostMapping("login")
-    public JsonData login(HttpServletRequest request, @RequestBody UserLoginRequest userLoginRequest) {
-        return accountService.getAccountForLogin(request,userLoginRequest);
+    public JsonData login(HttpServletRequest request, @RequestBody UserLoginREQ userLoginREQ) {
+        return accountService.getAccountForLogin(request, userLoginREQ);
     }
 
     @PostMapping("register")
-    public JsonData register(@RequestBody UserRegisterRequest userRegisterRequest) {
-        return accountService.userRegister(userRegisterRequest);
+    public JsonData register(@RequestBody UserRegisterREQ userRegisterREQ) {
+        return accountService.userRegister(userRegisterREQ);
     }
 }

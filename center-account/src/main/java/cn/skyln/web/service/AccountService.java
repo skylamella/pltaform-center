@@ -2,8 +2,8 @@ package cn.skyln.web.service;
 
 import cn.skyln.util.JsonData;
 import cn.skyln.web.model.DO.AccountDO;
-import cn.skyln.web.model.REQ.UserLoginRequest;
-import cn.skyln.web.model.REQ.UserRegisterRequest;
+import cn.skyln.web.model.REQ.UserLoginREQ;
+import cn.skyln.web.model.REQ.UserRegisterREQ;
 import cn.skyln.web.model.VO.AccountVO;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -18,9 +18,9 @@ public interface AccountService {
 
     AccountDO getAccountByMailOrPhoneOrUsername(String phoneOrMailOrUsername);
 
-    JsonData getAccountForLogin(HttpServletRequest httpServletRequest, UserLoginRequest userLoginRequest);
+    JsonData getAccountForLogin(HttpServletRequest httpServletRequest, UserLoginREQ userLoginREQ);
 
-    JsonData userRegister(UserRegisterRequest userRegisterRequest);
+    JsonData userRegister(UserRegisterREQ userRegisterREQ);
 
     AccountVO findUserDetail();
 }

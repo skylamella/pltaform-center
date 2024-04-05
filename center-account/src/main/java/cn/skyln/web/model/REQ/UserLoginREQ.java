@@ -9,7 +9,7 @@ import lombok.Data;
  * @Description:
  */
 @Data
-public class UserLoginRequest {
+public class UserLoginREQ {
     private String pwd;
 
     private String mail;

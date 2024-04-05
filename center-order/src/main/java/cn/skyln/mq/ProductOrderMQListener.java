@@ -7,6 +7,7 @@ import cn.skyln.util.CheckUtil;
 import cn.skyln.web.service.MqErrorLogService;
 import cn.skyln.web.service.ProductOrderService;
 import com.rabbitmq.client.Channel;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
@@ -34,8 +35,8 @@ public class ProductOrderMQListener {
     @Autowired
     private ProductOrderService productOrderService;
 
-    @Autowired
-    private RedisTemplate redisTemplate;
+    @Resource(name = "serviceDbTemplate")
+    private RedisTemplate<String, Integer> redisTemplate;
 
     @Autowired
     private MqErrorLogService mqErrorLogService;

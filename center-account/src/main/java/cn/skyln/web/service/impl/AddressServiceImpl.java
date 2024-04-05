@@ -9,7 +9,7 @@ import cn.skyln.util.JsonData;
 import cn.skyln.web.dao.mapper.AddressMapper;
 import cn.skyln.web.dao.repo.AddressRepo;
 import cn.skyln.web.model.DO.AddressDO;
-import cn.skyln.web.model.DTO.AddressAddRequest;
+import cn.skyln.web.model.REQ.AddressAddREQ;
 import cn.skyln.web.model.VO.AddressVO;
 import cn.skyln.web.service.AddressService;
 import org.springframework.beans.BeanUtils;
@@ -49,9 +49,9 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     @Transactional
-    public JsonData add(AddressAddRequest addressAddRequest) {
+    public JsonData add(AddressAddREQ addressAddREQ) {
         AddressDO addressDO = new AddressDO();
-        BeanUtils.copyProperties(addressAddRequest, addressDO);
+        BeanUtils.copyProperties(addressAddREQ, addressDO);
         LoginUser loginUser = LoginInterceptor.threadLocal.get();
         addressDO.setUserId(loginUser.getId());
         // 判断是否有默认收货地址

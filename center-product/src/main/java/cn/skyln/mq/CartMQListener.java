@@ -7,6 +7,7 @@ import cn.skyln.util.CheckUtil;
 import cn.skyln.web.service.CartService;
 import cn.skyln.web.service.MqErrorLogService;
 import com.rabbitmq.client.Channel;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
@@ -35,8 +36,8 @@ public class CartMQListener {
     @Autowired
     private CartService cartService;
 
-    @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    @Resource(name = "serviceDbTemplate")
+    private RedisTemplate<String, Integer> redisTemplate;
 
     @Autowired
     private MqErrorLogService mqErrorLogService;
@@ -63,23 +64,6 @@ public class CartMQListener {
                         msgTag,
                         channel,
                         MQChannelStateEnum.CLEAN_CART_RECORD.getMsg());
-//                if (redisTemplate.hasKey(mqKey)) {
-//                    retryNums = (int) redisTemplate.opsForValue().get(mqKey);
-//                    redisTemplate.delete(mqKey);
-//                    if (retryNums < 5) {
-//                        redisTemplate.opsForValue().set(mqKey, ++retryNums);
-//                        log.error("清空购物车-失败，第{}次重试 flag=false：{}", retryNums, cartMessage);
-//                        channel.basicReject(msgTag, true);
-//                    } else {
-//                        log.error("清空购物车-失败，重试次数超过5次 flag=false：{}", cartMessage);
-//                        // 重试次数超过5次，确认消息消费成功
-//                        channel.basicAck(msgTag, false);
-//                    }
-//                } else {
-//                    log.error("清空购物车-失败，第1次重试 flag=false：{}", cartMessage);
-//                    redisTemplate.opsForValue().set(mqKey, 0);
-//                    channel.basicReject(msgTag, true);
-//                }
             }
         } catch (Exception e) {
             log.error("{}-记录异常：{}，msg：{}", MQChannelStateEnum.CLEAN_CART_RECORD.getMsg(), e, cartMessage);

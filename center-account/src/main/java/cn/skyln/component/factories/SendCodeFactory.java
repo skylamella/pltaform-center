@@ -17,8 +17,10 @@ import org.springframework.stereotype.Component;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+import static cn.hutool.core.util.PhoneUtil.isPhone;
 import static cn.skyln.constant.CacheValue.VALUE_COMMON_FORMAT;
 import static cn.skyln.constant.TimeConstant.CAPTCHA_CODE_EXPIRED;
+import static cn.skyln.util.CheckUtil.isEmail;
 
 @Component
 @Slf4j
@@ -57,9 +59,9 @@ public class SendCodeFactory {
     }
 
     public String generateCacheKey(String enumName, String to, String serviceName) {
-        if (CheckUtil.isPhone(to)) {
+        if (isPhone(to)) {
             return String.format(CacheKey.CHECK_CODE_KEY, serviceName, "sms-" + enumName, to);
-        } else if (CheckUtil.isEmail(to)) {
+        } else if (isEmail(to)) {
             return String.format(CacheKey.CHECK_CODE_KEY, serviceName, "mail-" + enumName, to);
         }
         return null;
@@ -67,9 +69,9 @@ public class SendCodeFactory {
 
     private SendCodeStrategyContext getSendCodeStrategyContext(String enumName, String to, String serviceName) {
         key = generateCacheKey(enumName, to, serviceName);
-        if (CheckUtil.isPhone(to)) {
+        if (isPhone(to)) {
             return new SendCodeStrategyContext(smsComponent);
-        } else if (CheckUtil.isEmail(to)) {
+        } else if (isEmail(to)) {
             return new SendCodeStrategyContext(mailComponent);
         }
         return null;
