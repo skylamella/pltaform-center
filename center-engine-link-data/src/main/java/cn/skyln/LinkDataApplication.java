@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @author lamella
- * @description DataApplication TODO
+ * @description LinkDataApplication TODO
  * @since 2024-04-03 22:15
  */
 @SpringBootApplication
@@ -17,9 +17,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableDiscoveryClient
 @EnableTransactionManagement
 @EnableAsync
-public class DataApplication {
+public class LinkDataApplication {
     public static void main(String[] args) {
-        SpringApplication.run(DataApplication.class, args);
+        SpringApplication.run(LinkDataApplication.class, args);
     }
 }
 
