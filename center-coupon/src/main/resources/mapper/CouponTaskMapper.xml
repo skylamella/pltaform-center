@@ -14,11 +14,13 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, coupon_record_id, gmt_create, gmt_modified, out_trade_no, lock_state
+        id
+        , coupon_record_id, gmt_create, gmt_modified, out_trade_no, lock_state
     </sql>
 
     <sql id="Base_Column_List_No_Id">
-        coupon_record_id, out_trade_no, lock_state
+        coupon_record_id
+        , out_trade_no, lock_state
     </sql>
 
     <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">

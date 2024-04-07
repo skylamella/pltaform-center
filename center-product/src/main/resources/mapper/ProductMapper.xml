@@ -17,7 +17,8 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, title, cover_img, detail, old_amount, amount, stock, create_time, lock_stock
+        id
+        , title, cover_img, detail, old_amount, amount, stock, create_time, lock_stock
     </sql>
 
     <!-- 锁定商品库存 -->

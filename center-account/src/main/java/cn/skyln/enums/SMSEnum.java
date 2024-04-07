@@ -5,7 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author lamella
@@ -45,17 +44,16 @@ public enum SMSEnum {
     @Getter
     private final String templateId;
 
-    @Getter
     private final String param;
 
-    private SMSEnum(String param, String templateId) {
+    SMSEnum(String param, String templateId) {
         this.param = param;
         this.templateId = templateId;
     }
 
     public static SMSEnum getSMSEnumByName(String name) {
         List<SMSEnum> collect = Arrays.stream(SMSEnum.values()).filter(obj -> StringUtils.equalsIgnoreCase(obj.name(), name))
-                .collect(Collectors.toList());
+                .toList();
         return collect.size() != 1 ? null : collect.get(0);
     }
 

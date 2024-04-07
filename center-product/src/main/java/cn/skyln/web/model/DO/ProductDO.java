@@ -1,13 +1,14 @@
 package cn.skyln.web.model.DO;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -28,7 +29,7 @@ import java.util.Date;
 @ToString
 @Table(name = "tbl_product")
 @TableName("tbl_product")
-public class ProductDO  implements Serializable {
+public class ProductDO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 

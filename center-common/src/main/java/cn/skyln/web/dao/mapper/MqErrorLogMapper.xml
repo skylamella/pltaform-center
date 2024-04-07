@@ -4,15 +4,16 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.skyln.web.model.MqErrorLogDO">
-        <id column="id" property="id" />
-        <result column="out_trade_no" property="outTradeNo" />
+        <id column="id" property="id"/>
+        <result column="out_trade_no" property="outTradeNo"/>
         <result column="gmt_create" property="gmtCreate"/>
         <result column="gmt_modified" property="gmtModified"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, out_trade_no, gmt_create, gmt_modified
+        id
+        , out_trade_no, gmt_create, gmt_modified
     </sql>
 
 </mapper>

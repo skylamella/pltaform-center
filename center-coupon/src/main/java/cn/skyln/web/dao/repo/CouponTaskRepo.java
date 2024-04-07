@@ -1,6 +1,5 @@
 package cn.skyln.web.dao.repo;
 
-import cn.skyln.web.model.DO.CouponDO;
 import cn.skyln.web.model.DO.CouponTaskDO;
 import org.springframework.data.repository.Repository;
 

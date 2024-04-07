@@ -1,7 +1,6 @@
 package cn.skyln.web.dao.mapper;
 
 import cn.skyln.web.model.DO.EnvironmentDO;
-import cn.skyln.web.model.DO.ProjectDO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

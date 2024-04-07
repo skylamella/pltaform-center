@@ -23,12 +23,11 @@ import java.util.Objects;
 @Slf4j
 public class LoginInterceptor implements HandlerInterceptor {
 
-    public static ThreadLocal<LoginUser> threadLocal = new InheritableThreadLocal<>();
-
     /**
      * 24小时有效
      */
     private static final long CODE_EXPIRED = 24;
+    public static ThreadLocal<LoginUser> threadLocal = new InheritableThreadLocal<>();
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

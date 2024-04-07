@@ -15,14 +15,16 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, cart_id, product_id, buy_num, product_title, product_img, amount
+        id
+        , cart_id, product_id, buy_num, product_title, product_img, amount
     </sql>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List_No_Id">
-        cart_id, product_id, buy_num, product_title, product_img, amount
+        cart_id
+        , product_id, buy_num, product_title, product_img, amount
     </sql>
-    
+
     <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
         insert into cart_item (<include refid="Base_Column_List_No_Id"/>)
         values

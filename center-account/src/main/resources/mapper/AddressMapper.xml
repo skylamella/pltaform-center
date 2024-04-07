@@ -4,22 +4,23 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.skyln.web.model.DO.AddressDO">
-        <id column="id" property="id" />
-        <result column="user_id" property="userId" />
-        <result column="default_status" property="defaultStatus" />
-        <result column="receive_name" property="receiveName" />
-        <result column="phone" property="phone" />
-        <result column="province" property="province" />
-        <result column="city" property="city" />
-        <result column="region" property="region" />
-        <result column="detail_address" property="detailAddress" />
-        <result column="gmt_create" property="gmtCreate" />
-        <result column="gmt_modified" property="gmtModified" />
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="default_status" property="defaultStatus"/>
+        <result column="receive_name" property="receiveName"/>
+        <result column="phone" property="phone"/>
+        <result column="province" property="province"/>
+        <result column="city" property="city"/>
+        <result column="region" property="region"/>
+        <result column="detail_address" property="detailAddress"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, user_id, default_status, receive_name, phone, province, city, region, detail_address, gmt_create, gmt_modified
+        id
+        , user_id, default_status, receive_name, phone, province, city, region, detail_address, gmt_create, gmt_modified
     </sql>
 
 </mapper>

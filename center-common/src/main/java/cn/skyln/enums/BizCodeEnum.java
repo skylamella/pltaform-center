@@ -12,10 +12,10 @@ public enum BizCodeEnum {
     /**
      * 成功操作码
      */
-    SEARCH_SUCCESS(0,"数据查询成功"),
-    OPERATE_SUCCESS(0,"操作成功！数据更新可能延迟，如刷新后未显示变更，请耐心等待"),
-    SEND_CODE_SUCCESS(0,"验证码发送成功"),
-    LOGIN_SUCCESS(0,"登录成功"),
+    SEARCH_SUCCESS(0, "数据查询成功"),
+    OPERATE_SUCCESS(0, "操作成功！数据更新可能延迟，如刷新后未显示变更，请耐心等待"),
+    SEND_CODE_SUCCESS(0, "验证码发送成功"),
+    LOGIN_SUCCESS(0, "登录成功"),
 
     /**
      * 通用操作码
@@ -54,9 +54,9 @@ public enum BizCodeEnum {
      * 地址相关
      */
     ADDRESS_NOT_EXIT(120001, "收货地址不存在"),
-    ADDRESS_ADD_FAIL(120002,"新增收货地址失败"),
-    ADDRESS_DEL_FAIL(120003,"删除收货地址失败"),
-    ADDRESS_UPD_FAIL(120004,"更新收货地址失败"),
+    ADDRESS_ADD_FAIL(120002, "新增收货地址失败"),
+    ADDRESS_DEL_FAIL(120003, "删除收货地址失败"),
+    ADDRESS_UPD_FAIL(120004, "更新收货地址失败"),
 
 
     /**
@@ -72,45 +72,45 @@ public enum BizCodeEnum {
     /**
      * 优惠券
      */
-    COUPON_CONDITION_ERROR(200001,"优惠券条件错误"),
-    COUPON_UNAVAILABLE(200002,"没有可用的优惠券"),
-    COUPON_CANNOT_USED(200003,"存在不可用的优惠券"),
-    COUPON_NO_EXITS(200004,"优惠券不存在"),
-    COUPON_NO_STOCK(200005,"优惠券库存不足"),
-    COUPON_OUT_OF_LIMIT(200006,"优惠券领取超过限制次数"),
-    COUPON_OUT_OF_TIME(200007,"优惠券不在领取时间范围"),
-    COUPON_GET_FAIL(200008,"优惠券领取失败"),
-    COUPON_RECORD_LOCK_FAIL(200009,"优惠券锁定失败"),
+    COUPON_CONDITION_ERROR(200001, "优惠券条件错误"),
+    COUPON_UNAVAILABLE(200002, "没有可用的优惠券"),
+    COUPON_CANNOT_USED(200003, "存在不可用的优惠券"),
+    COUPON_NO_EXITS(200004, "优惠券不存在"),
+    COUPON_NO_STOCK(200005, "优惠券库存不足"),
+    COUPON_OUT_OF_LIMIT(200006, "优惠券领取超过限制次数"),
+    COUPON_OUT_OF_TIME(200007, "优惠券不在领取时间范围"),
+    COUPON_GET_FAIL(200008, "优惠券领取失败"),
+    COUPON_RECORD_LOCK_FAIL(200009, "优惠券锁定失败"),
 
     /**
      * 订单
      */
-    ORDER_CONFIRM_COUPON_FAIL(210001,"创建订单-优惠券使用失败,不满足价格条件"),
-    ORDER_CONFIRM_PRICE_FAIL(210002,"创建订单-验价失败"),
-    ORDER_CONFIRM_LOCK_PRODUCT_FAIL(210003,"创建订单-商品库存锁定失败"),
-    ORDER_CONFIRM_ADD_STOCK_TASK_FAIL(210004,"创建订单-新增商品库存锁定任务"),
-    ORDER_CONFIRM_TOKEN_NOT_EXIST(210008,"订单令牌缺少"),
-    ORDER_CONFIRM_TOKEN_EQUAL_FAIL(210009,"订单令牌不正确"),
-    ORDER_CONFIRM_NOT_EXIST(210010,"订单不存在"),
-    ORDER_CONFIRM_CART_ITEM_NOT_EXIST(210011,"购物车商品项不存在"),
+    ORDER_CONFIRM_COUPON_FAIL(210001, "创建订单-优惠券使用失败,不满足价格条件"),
+    ORDER_CONFIRM_PRICE_FAIL(210002, "创建订单-验价失败"),
+    ORDER_CONFIRM_LOCK_PRODUCT_FAIL(210003, "创建订单-商品库存锁定失败"),
+    ORDER_CONFIRM_ADD_STOCK_TASK_FAIL(210004, "创建订单-新增商品库存锁定任务"),
+    ORDER_CONFIRM_TOKEN_NOT_EXIST(210008, "订单令牌缺少"),
+    ORDER_CONFIRM_TOKEN_EQUAL_FAIL(210009, "订单令牌不正确"),
+    ORDER_CONFIRM_NOT_EXIST(210010, "订单不存在"),
+    ORDER_CONFIRM_CART_ITEM_NOT_EXIST(210011, "购物车商品项不存在"),
 
     /**
      * 支付
      */
-    PAY_ORDER_FAIL(220001,"创建支付订单失败"),
-    PAY_ORDER_CALLBACK_SIGN_FAIL(220002,"支付订单回调验证签失败"),
-    PAY_ORDER_CALLBACK_NOT_SUCCESS(220003,"支付回调订单更新失败"),
-    PAY_ORDER_NOT_EXIST(220005,"订单不存在"),
-    PAY_ORDER_STATE_ERROR(220006,"订单状态不正常"),
-    PAY_ORDER_PAY_TIMEOUT(220007,"订单支付超时"),
+    PAY_ORDER_FAIL(220001, "创建支付订单失败"),
+    PAY_ORDER_CALLBACK_SIGN_FAIL(220002, "支付订单回调验证签失败"),
+    PAY_ORDER_CALLBACK_NOT_SUCCESS(220003, "支付回调订单更新失败"),
+    PAY_ORDER_NOT_EXIST(220005, "订单不存在"),
+    PAY_ORDER_STATE_ERROR(220006, "订单状态不正常"),
+    PAY_ORDER_PAY_TIMEOUT(220007, "订单支付超时"),
 
     /**
      * 商品相关
      */
     PRODUCT_NOT_EXIT(230001, "商品不存在"),
-    PRODUCT_ADD_FAIL(230002,"新增商品失败"),
-    PRODUCT_DEL_FAIL(230003,"删除商品失败"),
-    PRODUCT_UPD_FAIL(230004,"更新商品失败"),
+    PRODUCT_ADD_FAIL(230002, "新增商品失败"),
+    PRODUCT_DEL_FAIL(230003, "删除商品失败"),
+    PRODUCT_UPD_FAIL(230004, "更新商品失败"),
     /**
      * 流量包操作
      */
@@ -122,15 +122,15 @@ public enum BizCodeEnum {
      * 购物车相关
      */
     CART_NOT_EXIT(240001, "购物车中没有商品"),
-    CART_UPD_NUM_FAIL(240002,"请输入大于0的商品数量"),
+    CART_UPD_NUM_FAIL(240002, "请输入大于0的商品数量"),
 
     /**
      * 轮播图相关
      */
     BANNER_NOT_EXIT(250001, "轮播图不存在"),
-    BANNER_ADD_FAIL(250002,"新增轮播图失败"),
-    BANNER_DEL_FAIL(250003,"删除轮播图失败"),
-    BANNER_UPD_FAIL(250004,"更新轮播图失败"),
+    BANNER_ADD_FAIL(250002, "新增轮播图失败"),
+    BANNER_DEL_FAIL(250003, "删除轮播图失败"),
+    BANNER_UPD_FAIL(250004, "更新轮播图失败"),
 
     /**
      * 短链分组

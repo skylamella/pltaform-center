@@ -9,7 +9,7 @@ import lombok.Data;
  * @Description:
  */
 @Data
-public class BizException extends RuntimeException{
+public class BizException extends RuntimeException {
 
     private Integer code;
     private String msg;

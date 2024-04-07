@@ -34,19 +34,6 @@ public class JsonData {
     private String msg;
 
     /**
-     * 获取远程调用数据
-     * 注意事项：
-     * 支持多单词下划线专驼峰（序列化和反序列化）
-     *
-     * @param typeReference
-     * @param <T>
-     * @return T
-     */
-    public <T> T getData(TypeReference<T> typeReference) {
-        return JSON.parseObject(JSON.toJSONString(data), typeReference);
-    }
-
-    /**
      * 成功，不传入数据
      *
      * @return JsonData
@@ -95,5 +82,18 @@ public class JsonData {
      */
     public static JsonData buildResult(BizCodeEnum codeEnum, Object data) {
         return JsonData.buildJsonData(codeEnum.getCode(), data, codeEnum.getMessage());
+    }
+
+    /**
+     * 获取远程调用数据
+     * 注意事项：
+     * 支持多单词下划线专驼峰（序列化和反序列化）
+     *
+     * @param typeReference
+     * @param <T>
+     * @return T
+     */
+    public <T> T getData(TypeReference<T> typeReference) {
+        return JSON.parseObject(JSON.toJSONString(data), typeReference);
     }
 }

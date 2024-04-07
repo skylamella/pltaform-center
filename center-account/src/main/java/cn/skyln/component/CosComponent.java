@@ -54,9 +54,9 @@ public class CosComponent {
      * @return 文件访问URL
      */
     public String uploadFileResult(String folder, MultipartFile uploadFile, String useForName) {
-        if(Objects.isNull(uploadFile)) return null;
+        if (Objects.isNull(uploadFile)) return null;
         String uploadFullName = uploadFile.getOriginalFilename();
-        if(StringUtils.isBlank(uploadFullName)) return null;
+        if (StringUtils.isBlank(uploadFullName)) return null;
         TransferManager transferManager = createTransferManager(useForName);
         if (Objects.isNull(transferManager)) return null;
         String suffix = uploadFullName.substring(uploadFullName.lastIndexOf("."));

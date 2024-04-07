@@ -23,7 +23,8 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, category, publish, coupon_img, coupon_title, price, user_limit, start_time, end_time, publish_count, stock, gmt_create, gmt_modified, condition_price
+        id
+        , category, publish, coupon_img, coupon_title, price, user_limit, start_time, end_time, publish_count, stock, gmt_create, gmt_modified, condition_price
     </sql>
 
     <!--扣减库存-->

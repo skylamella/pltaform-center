@@ -6,7 +6,6 @@ import cn.skyln.component.factories.strategy.impl.SMSComponent;
 import cn.skyln.constant.CacheKey;
 import cn.skyln.enums.BizCodeEnum;
 import cn.skyln.exception.BizException;
-import cn.skyln.util.CheckUtil;
 import cn.skyln.util.CommonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

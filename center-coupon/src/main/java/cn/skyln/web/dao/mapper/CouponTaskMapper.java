@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author skylamella
@@ -18,6 +18,7 @@ public interface CouponTaskMapper extends BaseMapper<CouponTaskDO> {
 
     /**
      * 批量插入
+     *
      * @param couponTaskDOList
      * @return 影响行数
      */

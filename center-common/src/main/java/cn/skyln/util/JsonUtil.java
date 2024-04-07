@@ -34,9 +34,9 @@ public class JsonUtil {
     }
 
 
-
     /**
      * 对象转为Json字符串
+     *
      * @param obj
      * @return
      */
@@ -49,8 +49,10 @@ public class JsonUtil {
         }
         return jsonStr;
     }
+
     /**
      * json字符串转为对象
+     *
      * @param jsonStr
      * @param beanType
      * @return
@@ -59,7 +61,7 @@ public class JsonUtil {
         T obj = null;
         try {
             obj = mapper.readValue(jsonStr, beanType);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return obj;
@@ -68,6 +70,7 @@ public class JsonUtil {
 
     /**
      * json数据转换成pojo对象list
+     *
      * @param jsonData
      * @param beanType
      * @return
@@ -85,6 +88,7 @@ public class JsonUtil {
 
     /**
      * 对象转为byte数组
+     *
      * @param obj
      * @return
      */
@@ -99,9 +103,9 @@ public class JsonUtil {
     }
 
 
-
     /**
      * byte数组转为对象
+     *
      * @param byteArr
      * @param beanType
      * @return

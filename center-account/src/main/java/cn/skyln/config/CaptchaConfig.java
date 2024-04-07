@@ -37,7 +37,7 @@ public class CaptchaConfig {
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_LENGTH, "6");
 //    properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_NAMES, "Courier");
         //字体间隔
-        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_SPACE,"8");
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_SPACE, "8");
         //干扰线颜色
 //    properties.setProperty(Constants.KAPTCHA_NOISE_COLOR, "white");
         //干扰实现类

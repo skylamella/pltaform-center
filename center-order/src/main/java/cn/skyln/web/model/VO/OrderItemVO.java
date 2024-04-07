@@ -1,7 +1,6 @@
 package cn.skyln.web.model.VO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

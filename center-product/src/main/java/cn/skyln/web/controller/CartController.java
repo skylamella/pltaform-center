@@ -73,7 +73,7 @@ public class CartController {
     }
 
     @PostMapping("redis_cart_to_mysql")
-    public Integer redisCart2MysqlCart(){
+    public Integer redisCart2MysqlCart() {
         return cartService.redisCart2MysqlCart();
     }
 

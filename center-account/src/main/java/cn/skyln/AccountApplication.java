@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @SpringBootApplication
 @MapperScan("cn.skyln.web.dao.mapper")
-//@EnableDiscoveryClient
+@EnableDiscoveryClient
 @EnableTransactionManagement
 @EnableAsync
 public class AccountApplication {

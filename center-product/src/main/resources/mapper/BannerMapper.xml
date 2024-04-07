@@ -4,15 +4,16 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.skyln.web.model.DO.BannerDO">
-        <id column="id" property="id" />
-        <result column="img" property="img" />
-        <result column="url" property="url" />
-        <result column="weight" property="weight" />
+        <id column="id" property="id"/>
+        <result column="img" property="img"/>
+        <result column="url" property="url"/>
+        <result column="weight" property="weight"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, img, url, weight
+        id
+        , img, url, weight
     </sql>
 
 </mapper>

@@ -31,27 +31,6 @@ public class CallbackController {
     @Autowired
     private ProductOrderService productOrderService;
 
-
-    @PostMapping("alipay")
-    public String alipayCallback(HttpServletRequest request, HttpServletResponse response) {
-        // 将异步通知中收到的所有参数存储到map中
-        Map<String, String> paramsMap = convertRequestParamsToMap(request);
-        log.info("支付宝回调通知结果：{}", paramsMap);
-        try {
-            boolean signVerified = AlipaySignature.rsaCheckV1(paramsMap, AlipayConfig.ALIPAY_PUB_KEY, AlipayConfig.CHARSET, AlipayConfig.SIGN_TYPE);
-            if(signVerified){
-                JsonData jsonData = productOrderService.handlerOrderCallbackMsg(ProductOrderPayTypeEnum.ALIPAY,paramsMap);
-                if(jsonData.getCode() == 0){
-                    // 通知结果确认成功，不然会一直通知，八次都没返回success就认为交易失败
-                    return "success";
-                }
-            }
-        } catch (AlipayApiException e) {
-            log.error("支付宝回调验证签名失败：参数：{}，异常：{}", paramsMap, e);
-        }
-        return "failure";
-    }
-
     /**
      * 将request中的参数转换成Map
      *
@@ -73,5 +52,25 @@ public class CallbackController {
         }
         System.out.println(paramsMap);
         return paramsMap;
+    }
+
+    @PostMapping("alipay")
+    public String alipayCallback(HttpServletRequest request, HttpServletResponse response) {
+        // 将异步通知中收到的所有参数存储到map中
+        Map<String, String> paramsMap = convertRequestParamsToMap(request);
+        log.info("支付宝回调通知结果：{}", paramsMap);
+        try {
+            boolean signVerified = AlipaySignature.rsaCheckV1(paramsMap, AlipayConfig.ALIPAY_PUB_KEY, AlipayConfig.CHARSET, AlipayConfig.SIGN_TYPE);
+            if (signVerified) {
+                JsonData jsonData = productOrderService.handlerOrderCallbackMsg(ProductOrderPayTypeEnum.ALIPAY, paramsMap);
+                if (jsonData.getCode() == 0) {
+                    // 通知结果确认成功，不然会一直通知，八次都没返回success就认为交易失败
+                    return "success";
+                }
+            }
+        } catch (AlipayApiException e) {
+            log.error("支付宝回调验证签名失败：参数：{}，异常：{}", paramsMap, e);
+        }
+        return "failure";
     }
 }

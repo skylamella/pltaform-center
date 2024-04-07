@@ -4,18 +4,19 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.skyln.web.model.DO.ProductTaskDO">
-        <id column="id" property="id" />
-        <result column="product_id" property="productId" />
-        <result column="buy_num" property="buyNum" />
-        <result column="product_name" property="productName" />
-        <result column="lock_state" property="lockState" />
-        <result column="out_trade_no" property="outTradeNo" />
-        <result column="create_time" property="createTime" />
+        <id column="id" property="id"/>
+        <result column="product_id" property="productId"/>
+        <result column="buy_num" property="buyNum"/>
+        <result column="product_name" property="productName"/>
+        <result column="lock_state" property="lockState"/>
+        <result column="out_trade_no" property="outTradeNo"/>
+        <result column="create_time" property="createTime"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, product_id, buy_num, product_name, lock_state, out_trade_no, create_time
+        id
+        , product_id, buy_num, product_name, lock_state, out_trade_no, create_time
     </sql>
 
 </mapper>

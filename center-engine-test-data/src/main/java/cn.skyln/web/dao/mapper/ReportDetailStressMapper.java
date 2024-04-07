@@ -1,6 +1,5 @@
 package cn.skyln.web.dao.mapper;
 
-import cn.skyln.web.model.DO.ReportDO;
 import cn.skyln.web.model.DO.ReportDetailStressDO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 

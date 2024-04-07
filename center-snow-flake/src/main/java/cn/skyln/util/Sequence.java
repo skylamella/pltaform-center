@@ -12,36 +12,33 @@ import java.util.regex.Pattern;
 @Slf4j
 public class Sequence {
 
+    private static final Pattern IP_PATTERN = Pattern.compile("\\d{1,3}(\\.\\d{1,3}){3,5}$");
+    private static volatile InetAddress LOCAL_ADDRESS = null;
     /**
      * 时间起始标记点，作为基准，一般取系统的最近时间（一旦确定不能变动）
      */
     private final long twepoch = 1519740777809L;
-
     /**
      * 5位的机房id
      */
     private final long datacenterIdBits = 5L;
+    protected final long maxDatacenterId = -1L ^ (-1L << datacenterIdBits);
     /**
      * 5位的机器id
      */
     private final long workerIdBits = 5L;
+    protected final long maxWorkerId = -1L ^ (-1L << workerIdBits);
     /**
      * 每毫秒内产生的id数: 2的12次方个
      */
     private final long sequenceBits = 12L;
-
-    protected final long maxDatacenterId = -1L ^ (-1L << datacenterIdBits);
-    protected final long maxWorkerId = -1L ^ (-1L << workerIdBits);
-
     private final long workerIdShift = sequenceBits;
     private final long datacenterIdShift = sequenceBits + workerIdBits;
-
     /**
      * 时间戳左移动位
      */
     private final long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits;
     private final long sequenceMask = -1L ^ (-1L << sequenceBits);
-
     /**
      * 所属机房id
      */
@@ -54,14 +51,10 @@ public class Sequence {
      * 并发控制序列
      */
     private long sequence = 0L;
-
     /**
      * 上次生产 ID 时间戳
      */
     private long lastTimestamp = -1L;
-
-    private static volatile InetAddress LOCAL_ADDRESS = null;
-    private static final Pattern IP_PATTERN = Pattern.compile("\\d{1,3}(\\.\\d{1,3}){3,5}$");
 
     public Sequence() {
         this.datacenterId = getDatacenterId();
@@ -84,6 +77,70 @@ public class Sequence {
 
         this.workerId = workerId;
         this.datacenterId = datacenterId;
+    }
+
+    /**
+     * Find first valid IP from local network card
+     *
+     * @return first valid local IP
+     */
+    public static InetAddress getLocalAddress() {
+        if (LOCAL_ADDRESS != null) {
+            return LOCAL_ADDRESS;
+        }
+
+        LOCAL_ADDRESS = getLocalAddress0();
+        return LOCAL_ADDRESS;
+    }
+
+    private static InetAddress getLocalAddress0() {
+        InetAddress localAddress = null;
+        try {
+            localAddress = InetAddress.getLocalHost();
+            if (isValidAddress(localAddress)) {
+                return localAddress;
+            }
+        } catch (Throwable e) {
+            log.warn("Failed to retrieving ip address, " + e.getMessage(), e);
+        }
+
+        try {
+            Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+            if (interfaces != null) {
+                while (interfaces.hasMoreElements()) {
+                    try {
+                        NetworkInterface network = interfaces.nextElement();
+                        Enumeration<InetAddress> addresses = network.getInetAddresses();
+                        while (addresses.hasMoreElements()) {
+                            try {
+                                InetAddress address = addresses.nextElement();
+                                if (isValidAddress(address)) {
+                                    return address;
+                                }
+                            } catch (Throwable e) {
+                                log.warn("Failed to retrieving ip address, " + e.getMessage(), e);
+                            }
+                        }
+                    } catch (Throwable e) {
+                        log.warn("Failed to retrieving ip address, " + e.getMessage(), e);
+                    }
+                }
+            }
+        } catch (Throwable e) {
+            log.warn("Failed to retrieving ip address, " + e.getMessage(), e);
+        }
+
+        log.error("Could not get local host ip address, will use 127.0.0.1 instead.");
+        return localAddress;
+    }
+
+    private static boolean isValidAddress(InetAddress address) {
+        if (address == null || address.isLoopbackAddress()) {
+            return false;
+        }
+
+        String name = address.getHostAddress();
+        return (name != null && !"0.0.0.0".equals(name) && !"127.0.0.1".equals(name) && IP_PATTERN.matcher(name).matches());
     }
 
     /**
@@ -187,70 +244,6 @@ public class Sequence {
 
     protected long timeGen() {
         return SystemClock.INSTANCE.currentTimeMillis();
-    }
-
-    /**
-     * Find first valid IP from local network card
-     *
-     * @return first valid local IP
-     */
-    public static InetAddress getLocalAddress() {
-        if (LOCAL_ADDRESS != null) {
-            return LOCAL_ADDRESS;
-        }
-
-        LOCAL_ADDRESS = getLocalAddress0();
-        return LOCAL_ADDRESS;
-    }
-
-    private static InetAddress getLocalAddress0() {
-        InetAddress localAddress = null;
-        try {
-            localAddress = InetAddress.getLocalHost();
-            if (isValidAddress(localAddress)) {
-                return localAddress;
-            }
-        } catch (Throwable e) {
-            log.warn("Failed to retrieving ip address, " + e.getMessage(), e);
-        }
-
-        try {
-            Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-            if (interfaces != null) {
-                while (interfaces.hasMoreElements()) {
-                    try {
-                        NetworkInterface network = interfaces.nextElement();
-                        Enumeration<InetAddress> addresses = network.getInetAddresses();
-                        while (addresses.hasMoreElements()) {
-                            try {
-                                InetAddress address = addresses.nextElement();
-                                if (isValidAddress(address)) {
-                                    return address;
-                                }
-                            } catch (Throwable e) {
-                                log.warn("Failed to retrieving ip address, " + e.getMessage(), e);
-                            }
-                        }
-                    } catch (Throwable e) {
-                        log.warn("Failed to retrieving ip address, " + e.getMessage(), e);
-                    }
-                }
-            }
-        } catch (Throwable e) {
-            log.warn("Failed to retrieving ip address, " + e.getMessage(), e);
-        }
-
-        log.error("Could not get local host ip address, will use 127.0.0.1 instead.");
-        return localAddress;
-    }
-
-    private static boolean isValidAddress(InetAddress address) {
-        if (address == null || address.isLoopbackAddress()) {
-            return false;
-        }
-
-        String name = address.getHostAddress();
-        return (name != null && !"0.0.0.0".equals(name) && !"127.0.0.1".equals(name) && IP_PATTERN.matcher(name).matches());
     }
 
 }

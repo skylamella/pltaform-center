@@ -31,14 +31,14 @@ public class CouponRecordVO {
      * 创建时间获得时间
      */
     @JsonProperty("gmt_create")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",locale = "zh",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "zh", timezone = "GMT+8")
     private Date gmtCreate;
 
     /**
      * 更新时间
      */
     @JsonProperty("gmt_modified")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",locale = "zh",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "zh", timezone = "GMT+8")
     private Date gmtModified;
 
     /**
@@ -69,14 +69,14 @@ public class CouponRecordVO {
      * 开始时间
      */
     @JsonProperty("start_time")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",locale = "zh",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "zh", timezone = "GMT+8")
     private Date startTime;
 
     /**
      * 结束时间
      */
     @JsonProperty("end_time")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",locale = "zh",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "zh", timezone = "GMT+8")
     private Date endTime;
 
     /**

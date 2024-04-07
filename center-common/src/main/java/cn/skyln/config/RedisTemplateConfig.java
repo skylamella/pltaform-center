@@ -17,24 +17,19 @@ import java.util.Objects;
 @Configuration
 public class RedisTemplateConfig {
 
+    private static RedissonClient redisson = null;
     @Value("${redis.idWorkerDb}")
     private int idWorkerDb;
-
     @Value("${redis.serviceDb}")
     private int serviceDb;
-
     @Value("${redis.cacheDb}")
     private int cacheDb;
-
     @Value("${redis.host}")
     private String host;
-
     @Value("${redis.port}")
     private int port;
-
     @Value("${redis.password}")
     private String password;
-    private static RedissonClient redisson = null;
 
     /**
      * 雪花ID算法专用

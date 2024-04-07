@@ -106,7 +106,7 @@ public class RsaUtils {
         Files.write(dest.toPath(), bytes);
     }
 
-    private static String setFolder(){
+    private static String setFolder() {
         StringBuilder sb = new StringBuilder();
         String separator = File.separator;
         String userHome = System.getProperty("user.home");

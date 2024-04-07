@@ -19,17 +19,19 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, product_order_id, out_trade_no, product_id, product_name, product_img, buy_num, gmt_create, gmt_modified, total_amount, amount
+        id
+        , product_order_id, out_trade_no, product_id, product_name, product_img, buy_num, gmt_create, gmt_modified, total_amount, amount
     </sql>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List_No_Id">
-        product_order_id, out_trade_no, product_id, product_name, product_img, buy_num, total_amount, amount
+        product_order_id
+        , out_trade_no, product_id, product_name, product_img, buy_num, total_amount, amount
     </sql>
 
     <!-- 批量插入 -->
     <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
-        insert into product_order_item (<include refid="Base_Column_List_No_Id" />)
+        insert into product_order_item (<include refid="Base_Column_List_No_Id"/>)
         values
         <foreach collection="orderItemList" item="item" index="index" separator=",">
             (

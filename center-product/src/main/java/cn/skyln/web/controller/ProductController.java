@@ -36,16 +36,16 @@ public class ProductController {
     }
 
     @GetMapping("/detail/{product_id}")
-    public JsonData detail(@PathVariable("product_id") String productId){
+    public JsonData detail(@PathVariable("product_id") String productId) {
         ProductDetailVO productDetailVO = productService.findDetailById(productId);
-        if(Objects.isNull(productDetailVO)){
+        if (Objects.isNull(productDetailVO)) {
             return JsonData.buildResult(BizCodeEnum.PRODUCT_NOT_EXIT);
         }
-        return JsonData.buildResult(BizCodeEnum.SEARCH_SUCCESS,productDetailVO);
+        return JsonData.buildResult(BizCodeEnum.SEARCH_SUCCESS, productDetailVO);
     }
 
     @PostMapping("lock_products")
-    public JsonData lockProducts(@RequestBody LockProductDTO lockProductDTO){
+    public JsonData lockProducts(@RequestBody LockProductDTO lockProductDTO) {
         return productService.lockProductStock(lockProductDTO);
     }
 

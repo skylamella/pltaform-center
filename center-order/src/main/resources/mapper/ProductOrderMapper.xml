@@ -22,7 +22,8 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, out_trade_no, state, gmt_create, gmt_modified, total_amount, pay_amount, pay_type, nickname, head_img, user_id, del, order_type, receiver_address
+        id
+        , out_trade_no, state, gmt_create, gmt_modified, total_amount, pay_amount, pay_type, nickname, head_img, user_id, del, order_type, receiver_address
     </sql>
     <!-- 更新订单状态 -->
     <update id="updateOrderPayState">

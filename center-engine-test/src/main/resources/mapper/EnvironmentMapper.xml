@@ -4,20 +4,21 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.skyln.web.model.DO.EnvironmentDO">
-        <id column="id" property="id" />
-        <result column="project_id" property="projectId" />
-        <result column="name" property="name" />
-        <result column="description" property="description" />
-        <result column="protocol" property="protocol" />
-        <result column="domain" property="domain" />
-        <result column="port" property="port" />
-        <result column="gmt_create" property="gmtCreate" />
-        <result column="gmt_modified" property="gmtModified" />
+        <id column="id" property="id"/>
+        <result column="project_id" property="projectId"/>
+        <result column="name" property="name"/>
+        <result column="description" property="description"/>
+        <result column="protocol" property="protocol"/>
+        <result column="domain" property="domain"/>
+        <result column="port" property="port"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, project_id, name, description, protocol, domain, port, gmt_create, gmt_modified
+        id
+        , project_id, name, description, protocol, domain, port, gmt_create, gmt_modified
     </sql>
 
 </mapper>

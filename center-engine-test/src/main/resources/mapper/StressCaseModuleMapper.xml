@@ -4,17 +4,18 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.skyln.web.model.DO.StressCaseModuleDO">
-        <id column="id" property="id" />
-        <result column="project_id" property="projectId" />
-        <result column="name" property="name" />
-        <result column="description" property="description" />
-        <result column="gmt_create" property="gmtCreate" />
-        <result column="gmt_modified" property="gmtModified" />
+        <id column="id" property="id"/>
+        <result column="project_id" property="projectId"/>
+        <result column="name" property="name"/>
+        <result column="description" property="description"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, description, project_admin_id, gmt_create, gmt_modified
+        id
+        , name, description, project_admin_id, gmt_create, gmt_modified
     </sql>
 
 </mapper>
