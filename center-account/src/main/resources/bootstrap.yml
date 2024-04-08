@@ -23,3 +23,5 @@ spring:
             group: COMMON_GROUP
           - data-id: data-base-dev.yaml
             group: COMMON_GROUP
+          - data-id: mq-base-dev.yaml
+            group: COMMON_GROUP

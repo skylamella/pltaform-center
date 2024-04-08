@@ -24,6 +24,7 @@ import cn.skyln.web.service.CartService;
 import cn.skyln.web.service.ProductService;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -46,7 +47,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CartServiceImpl implements CartService {
 
-    @Autowired
+    @Resource(name = "serviceDbTemplate")
     private RedisTemplate<String, String> redisTemplate;
 
     @Autowired

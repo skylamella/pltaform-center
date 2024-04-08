@@ -17,3 +17,5 @@ spring:
             group: COMMON_GROUP
           - data-id: sa-token-dev.yaml
             group: COMMON_GROUP
+          - data-id: data-base-dev.yaml
+            group: COMMON_GROUP

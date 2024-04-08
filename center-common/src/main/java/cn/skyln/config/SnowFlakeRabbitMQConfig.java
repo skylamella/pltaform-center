@@ -53,7 +53,7 @@ public class SnowFlakeRabbitMQConfig {
     /**
      * 消息转换器
      */
-    @Bean
+    @Bean(name = "snow_flake_messageConverter")
     public MessageConverter messageConverter() {
         return new Jackson2JsonMessageConverter();
     }
@@ -62,7 +62,7 @@ public class SnowFlakeRabbitMQConfig {
      * 创建交换机 Topic类型，也可以用Direct路由
      * 一般一个微服务一个交换机
      */
-    @Bean
+    @Bean(name = "snow_flake_couponEventExchange")
     public Exchange couponEventExchange() {
         return new TopicExchange(eventExchange, true, false);
     }
@@ -70,7 +70,7 @@ public class SnowFlakeRabbitMQConfig {
     /**
      * 创建延迟队列
      */
-    @Bean
+    @Bean(name = "snow_flake_idCloseDelayQueue")
     public Queue idCloseDelayQueue() {
         Map<String, Object> args = new HashMap<>(3);
         args.put("x-message-ttl", ttl);
@@ -82,7 +82,7 @@ public class SnowFlakeRabbitMQConfig {
     /**
      * 死信队列，普通队列，用于被监听
      */
-    @Bean
+    @Bean(name = "snow_flake_idCloseQueue")
     public Queue idCloseQueue() {
         return new Queue(idCloseQueue, true, false, false);
     }
@@ -90,7 +90,7 @@ public class SnowFlakeRabbitMQConfig {
     /**
      * 死信队列绑定关系建立
      */
-    @Bean
+    @Bean(name = "snow_flake_idCloseBinding")
     public Binding idCloseBinding() {
         return new Binding(idCloseQueue, Binding.DestinationType.QUEUE, eventExchange, idCloseRoutingKey, null);
     }
@@ -98,7 +98,7 @@ public class SnowFlakeRabbitMQConfig {
     /**
      * 延迟队列绑定关系建立
      */
-    @Bean
+    @Bean(name = "snow_flake_idCloseDelayBinding")
     public Binding idCloseDelayBinding() {
         return new Binding(idCloseDelayQueue, Binding.DestinationType.QUEUE, eventExchange, idCloseDelayRoutingKey, null);
     }

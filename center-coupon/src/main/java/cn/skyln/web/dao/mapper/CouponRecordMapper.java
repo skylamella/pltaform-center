@@ -24,7 +24,7 @@ public interface CouponRecordMapper extends BaseMapper<CouponRecordDO> {
      * @param lockCouponRecordIds 优惠券ID列表
      * @return 影响行数
      */
-    int lockUseStateBatch(@Param("userId") Long userId, @Param("useState") String useState, @Param("lockCouponRecordIds") List<Long> lockCouponRecordIds);
+    int lockUseStateBatch(@Param("userId") String userId, @Param("useState") String useState, @Param("lockCouponRecordIds") List<String> lockCouponRecordIds);
 
     /**
      * 更新优惠券使用记录
@@ -33,7 +33,7 @@ public interface CouponRecordMapper extends BaseMapper<CouponRecordDO> {
      * @param useState       更新状态
      * @return 影响行数
      */
-    int updateState(@Param("couponRecordId") Long couponRecordId, @Param("useState") String useState);
+    int updateState(@Param("couponRecordId") String couponRecordId, @Param("useState") String useState);
 
     /**
      * 根据ID列表查询优惠券详情
@@ -42,5 +42,5 @@ public interface CouponRecordMapper extends BaseMapper<CouponRecordDO> {
      * @param userId             用户ID
      * @return 结果list
      */
-    List<CouponRecordDO> queryListInIds(@Param("couponRecordIdList") List<Long> couponRecordIdList, @Param("userId") Long userId);
+    List<CouponRecordDO> queryListInIds(@Param("couponRecordIdList") List<String> couponRecordIdList, @Param("userId") String userId);
 }

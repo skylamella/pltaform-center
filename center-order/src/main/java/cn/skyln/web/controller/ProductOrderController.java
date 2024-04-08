@@ -11,6 +11,7 @@ import cn.skyln.util.JsonData;
 import cn.skyln.web.model.REQ.ConfirmOrderRequest;
 import cn.skyln.web.model.REQ.RepayOrderRequest;
 import cn.skyln.web.service.ProductOrderService;
+import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -38,7 +39,7 @@ public class ProductOrderController {
     @Autowired
     private ProductOrderService productOrderService;
 
-    @Autowired
+    @Resource(name = "serviceDbTemplate")
     private RedisTemplate<String, String> redisTemplate;
 
     @PostMapping("/confirm")

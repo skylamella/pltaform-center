@@ -63,6 +63,11 @@
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+
         <!--添加nacos客户端-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
