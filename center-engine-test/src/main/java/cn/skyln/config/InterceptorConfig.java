@@ -42,8 +42,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
      */
     private List<String> getAddPathPatternsList() {
         List<String> addPathPatternsList = new ArrayList<>();
-        addPathPatternsList.add("/api/*/test/**");
-        addPathPatternsList.add("/api/*/test_project/**");
+        addPathPatternsList.add("/api/*/env/**");
+        addPathPatternsList.add("/api/*/project/**");
         return addPathPatternsList;
     }
 
