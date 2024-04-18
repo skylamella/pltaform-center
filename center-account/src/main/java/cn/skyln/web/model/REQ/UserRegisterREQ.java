@@ -16,6 +16,7 @@ public class UserRegisterREQ {
     private String rePwd;
 
     private String name;
+    private String username;
 
     @JsonProperty("head_img")
     private String headImg;
