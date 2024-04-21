@@ -1,9 +1,7 @@
 package cn.skyln.web.controller.common;
 
 import cn.skyln.util.JsonData;
-import cn.skyln.web.model.REQ.ProjectDelReq;
-import cn.skyln.web.model.REQ.ProjectSaveReq;
-import cn.skyln.web.model.REQ.ProjectUpdateReq;
+import cn.skyln.web.model.REQ.ProjectOperationReq;
 import cn.skyln.web.service.common.ProjectService;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +37,7 @@ public class ProjectController {
      * @return 保存结果的JsonData对象
      */
     @PostMapping("/save")
-    public JsonData save(@RequestBody ProjectSaveReq req){
+    public JsonData save(@RequestBody ProjectOperationReq req){
         return JsonData.buildSuccess(projectService.save(req));
     }
 
@@ -51,7 +49,7 @@ public class ProjectController {
      * @return 更新结果的JsonData对象
      */
     @PostMapping("/update")
-    public JsonData update(@RequestBody ProjectUpdateReq req){
+    public JsonData update(@RequestBody ProjectOperationReq req){
         return JsonData.buildSuccess(projectService.update(req));
     }
 
@@ -63,7 +61,7 @@ public class ProjectController {
      * 返回删除结果的JsonData对象
      */
     @PostMapping("/del")
-    public JsonData delete(@RequestBody ProjectDelReq req){
+    public JsonData delete(@RequestBody ProjectOperationReq req){
         return JsonData.buildSuccess(projectService.delete(req.getId()));
     }
 }

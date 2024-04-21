@@ -11,4 +11,6 @@ import org.springframework.data.repository.Repository;
 public interface ProjectRepo extends Repository<ProjectDO, String> {
 
     ProjectDO getProjectById(String id);
+
+    ProjectDO getProjectByIdAndProjectAdminId(String id, String projectAdminId);
 }

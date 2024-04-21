@@ -1,8 +1,7 @@
 package cn.skyln.web.service.common;
 
 import cn.skyln.web.model.DTO.EnvironmentDTO;
-import cn.skyln.web.model.REQ.EnvironmentSaveReq;
-import cn.skyln.web.model.REQ.EnvironmentUpdateReq;
+import cn.skyln.web.model.REQ.EnvironmentOperationReq;
 
 import java.util.List;
 
@@ -14,9 +13,9 @@ import java.util.List;
 public interface EnvironmentService {
     List<EnvironmentDTO> list(String projectId);
 
-    int save(EnvironmentSaveReq req);
+    int save(EnvironmentOperationReq req);
 
-    int update(EnvironmentUpdateReq req);
+    int update(EnvironmentOperationReq req);
 
     int delete(String projectId, String id);
 }

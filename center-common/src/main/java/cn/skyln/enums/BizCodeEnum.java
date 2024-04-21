@@ -145,6 +145,16 @@ public enum BizCodeEnum {
     SHORT_LINK_NOT_EXIST(310001, "短链不存在"),
 
     /**
+     * 云测项目
+     */
+    PROJECT_NOT_EXIT(400001, "项目不存在"),
+
+    /**
+     * 云测环境
+     */
+    ENVIRONMENT_NOT_EXIT(410001, "环境不存在"),
+
+    /**
      * 流控操作
      */
     CONTROL_FLOW_EXCEPTION(500001, "限流异常，已触发流量控制，请稍后再次尝试。"),

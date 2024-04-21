@@ -4,11 +4,11 @@ import lombok.Data;
 
 /**
  * @author lamella
- * @description EnvironmentUpdateReq TODO
+ * @description EnvironmentOperationReq TODO
  * @since 2024-04-18 22:17
  */
 @Data
-public class EnvironmentUpdateReq {
+public class EnvironmentOperationReq {
     private String id;
 
     private String projectId;
